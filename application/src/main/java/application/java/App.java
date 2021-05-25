@@ -55,57 +55,36 @@ public class App {
 
 			byte[] result;
 
-			System.out.println("Submit Transaction: InitLedger creates the initial set of assets on the ledger.");
-			result = contract.submitTransaction("queryAllCallForProposals");
+			System.out.println("Initializing ledger with 3 call for proposals and 3 partecipants");
+			result = contract.submitTransaction("initLedger");
 			System.out.println(new String(result));
 
-//			System.out.println("\n");
-//			result = contract.evaluateTransaction("GetAllAssets");
-//			System.out.println("Evaluate Transaction: GetAllAssets, result: " + new String(result));
-//
-//			System.out.println("\n");
-//			System.out.println("Submit Transaction: CreateAsset asset13");
-//			//CreateAsset creates an asset with ID asset13, color yellow, owner Tom, size 5 and appraisedValue of 1300
-//			contract.submitTransaction("CreateAsset", "asset13", "yellow", "5", "Tom", "1300");
-//
-//			System.out.println("\n");
-//			System.out.println("Evaluate Transaction: ReadAsset asset13");
-//			// ReadAsset returns an asset with given assetID
-//			result = contract.evaluateTransaction("ReadAsset", "asset13");
-//			System.out.println("result: " + new String(result));
-//
-//			System.out.println("\n");
-//			System.out.println("Evaluate Transaction: AssetExists asset1");
-//			// AssetExists returns "true" if an asset with given assetID exist
-//			result = contract.evaluateTransaction("AssetExists", "asset1");
-//			System.out.println("result: " + new String(result));
-//
-//			System.out.println("\n");
-//			System.out.println("Submit Transaction: UpdateAsset asset1, new AppraisedValue : 350");
-//			// UpdateAsset updates an existing asset with new properties. Same args as CreateAsset
-//			contract.submitTransaction("UpdateAsset", "asset1", "blue", "5", "Tomoko", "350");
-//
-//			System.out.println("\n");
-//			System.out.println("Evaluate Transaction: ReadAsset asset1");
-//			result = contract.evaluateTransaction("ReadAsset", "asset1");
-//			System.out.println("result: " + new String(result));
-//
-//			try {
-//				System.out.println("\n");
-//				System.out.println("Submit Transaction: UpdateAsset asset70");
-//				//Non existing asset asset70 should throw Error
-//				contract.submitTransaction("UpdateAsset", "asset70", "blue", "5", "Tomoko", "300");
-//			} catch (Exception e) {
-//				System.err.println("Expected an error on UpdateAsset of non-existing Asset: " + e);
-//			}
-//
-//			System.out.println("\n");
-//			System.out.println("Submit Transaction: TransferAsset asset1 from owner Tomoko > owner Tom");
-//			// TransferAsset transfers an asset with given ID to new owner Tom
-//			contract.submitTransaction("TransferAsset", "asset1", "Tom");
-//
+			System.out.println("Calling all partecipants for CFP1");
+			result = contract.submitTransaction("callAllPartecipants", "cfp1");
+			System.out.println(new String(result));
+
+			System.out.println("Partecipant PRT1 refuse CFP1");
+			result = contract.submitTransaction("refuseCallForProposal", "prt1", "cfp1");
+			System.out.println(new String(result));
+
+			System.out.println("Partecipant PRT2 proposing to CFP1 with offer: 60");
+			result = contract.submitTransaction("proposeForCallForProposal", "prt2", "cfp1", "60");
+			System.out.println(new String(result));
+
+			System.out.println("Partecipant PRT3 proposing to CFP1 with offer: 30");
+			result = contract.submitTransaction("proposeForCallForProposal", "prt3", "cfp1", "30");
+			System.out.println(new String(result));
+
+			System.out.println("Closing CFP1");
+			result = contract.submitTransaction("closeCallForProposal", "cfp1");
+			System.out.println(new String(result));
+
+			System.out.println("Ending CFP1");
+			result = contract.submitTransaction("endCallForProposal", "cfp1");
+			System.out.println(new String(result));
+
 			System.out.println("\n");
-			System.out.println("Evaluate Transaction: ReadAsset asset1");
+			System.out.println("Ledger state");
 			result = contract.evaluateTransaction("queryAllCallForProposals");
 			System.out.println("result: " + new String(result));
 		}

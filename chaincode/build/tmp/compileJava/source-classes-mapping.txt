@@ -1,0 +1,11 @@
+org/contractnet/CallForProposalContract.java
+ org.contractnet.CallForProposalContract
+ org.contractnet.CallForProposalContract$FabCallForProposalErrors
+org/contractnet/Partecipant.java
+ org.contractnet.Partecipant
+org/contractnet/CallForProposal.java
+ org.contractnet.CallForProposal
+org/contractnet/CallForProposalQueryResult.java
+ org.contractnet.CallForProposalQueryResult
+org/contractnet/PartecipantQueryResult.java
+ org.contractnet.PartecipantQueryResult
